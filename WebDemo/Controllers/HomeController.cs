@@ -9,10 +9,10 @@ namespace WebDemo.Controllers
 {
     public class HomeController : Controller
     {
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(String id)
         {
             Models.Client client = new Models.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], System.Configuration.ConfigurationManager.AppSettings["Username"], System.Configuration.ConfigurationManager.AppSettings["Password"]);
-            var result = await client.GetInfo("gbst1");
+            var result = await client.GetInfo(id);
             return View();
         }
 
