@@ -16,6 +16,11 @@ namespace WebDemo.Controllers
             return View(models);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">Chain Name</param>
+        /// <returns></returns>
         public async Task<ActionResult> Details(String id)
         {
             Models.Client client = new Models.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], System.Configuration.ConfigurationManager.AppSettings["Username"], System.Configuration.ConfigurationManager.AppSettings["Password"]);
