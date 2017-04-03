@@ -79,6 +79,7 @@
     <Folder Include="Scripts\" />
     <Folder Include="Clients\" />
     <Folder Include="ViewModels\" />
+    <Folder Include="Views\Chain\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
@@ -100,6 +101,7 @@
     <Content Include="Web.config" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
+    <Content Include="Views\Chain\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
