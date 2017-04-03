@@ -138,6 +138,8 @@
     <Compile Include="Models\GetInfo\Request.cs" />
     <Compile Include="Models\GetInfo\Response.cs" />
     <Compile Include="Models\GetInfo\Result.cs" />
+    <Compile Include="Models\ListStreams\Request.cs" />
+    <Compile Include="Models\ListStreams\Result.cs" />
     <Compile Include="Models\Request.cs" />
     <Compile Include="Models\Response.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
