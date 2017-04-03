@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace WebDemo.Models
+namespace Models
 {
     public class Request
     {

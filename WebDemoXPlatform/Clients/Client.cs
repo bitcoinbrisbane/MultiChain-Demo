@@ -6,8 +6,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace WebDemo.Models
+namespace WebDemoXPlatform.Models
 {
     public class Client
     {

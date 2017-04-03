@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace WebDemo.Models.GetInfo
+namespace WebDemo.Models.ListStreams
 {
     public class Request: WebDemo.Models.Request
     {
@@ -13,7 +13,7 @@ namespace WebDemo.Models.GetInfo
 
         public Request()
         {
-            Method = "getinfo";
+            Method = "liststreams";
         }
     }
 }
