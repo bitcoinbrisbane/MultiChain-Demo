@@ -6,6 +6,6 @@ namespace Models.GetInfo
     public class Response
     {
         [JsonProperty("result")]
-        public Result[] Result { get; set; }
+        public Result Result { get; set; }
     }
 }

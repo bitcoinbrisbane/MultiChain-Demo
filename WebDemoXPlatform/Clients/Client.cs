@@ -6,7 +6,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebDemoXPlatform.Models
+namespace WebDemoXPlatform.Clients
 {
     public class Client
     {
@@ -36,7 +36,7 @@ namespace WebDemoXPlatform.Models
             //TODO:  String isnull or empty
             using (HttpClient client = new HttpClient())
             {
-                Models.GetInfo.Request request = new Models.GetInfo.Request()
+                Models.Request request = new Models.GetInfo.Request()
                 {
                     ChainName = chain
                 };

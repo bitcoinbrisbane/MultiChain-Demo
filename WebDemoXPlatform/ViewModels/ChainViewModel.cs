@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebDemo.ViewModels
+namespace WebDemoXPlatform.ViewModels
 {
     public class ChainViewModel
     {

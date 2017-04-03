@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace WebDemo.Models.ListStreams
+namespace Models.ListStreams
 {
     public class Result
     {

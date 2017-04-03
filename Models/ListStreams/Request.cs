@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace WebDemo.Models.ListStreams
+namespace Models.ListStreams
 {
-    public class Request: WebDemo.Models.Request
+    public class Request: Models.Request
     {
         [JsonProperty("chain_name")]
         public String ChainName { get; set; }

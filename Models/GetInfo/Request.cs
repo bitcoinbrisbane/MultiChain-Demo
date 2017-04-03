@@ -3,7 +3,7 @@ using System;
 
 namespace Models.GetInfo
 {
-    public class Request: WebDemo.Models.Request
+    public class Request: Models.Request
     {
         [JsonProperty("chain_name")]
         public String ChainName { get; set; }

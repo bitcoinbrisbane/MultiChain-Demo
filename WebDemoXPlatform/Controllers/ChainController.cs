@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace WebDemo.Controllers
+namespace WebDemoXPlatform.Controllers
 {
     public class ChainController : Controller
     {
@@ -18,7 +18,7 @@ namespace WebDemo.Controllers
 
         public async Task<ActionResult> Details(String id)
         {
-            Models.Client client = new Models.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], System.Configuration.ConfigurationManager.AppSettings["Username"], System.Configuration.ConfigurationManager.AppSettings["Password"]);
+			Clients.Client client = new Clients.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], System.Configuration.ConfigurationManager.AppSettings["Username"], System.Configuration.ConfigurationManager.AppSettings["Password"]);
             var response = await client.GetInfo(id);
 
             ViewModels.ChainViewModel model = new ViewModels.ChainViewModel()
