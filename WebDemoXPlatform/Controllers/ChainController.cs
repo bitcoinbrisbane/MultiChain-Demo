@@ -13,22 +13,25 @@ namespace WebDemoXPlatform.Controllers
         {
             List<ViewModels.ChainViewModel> models = new List<ViewModels.ChainViewModel>();
             models.Add(new ViewModels.ChainViewModel() { Name = "gbst1" });
+            models.Add(new ViewModels.ChainViewModel() { Name = "chain1" });
             return View(models);
         }
 
         public async Task<ActionResult> Details(String id)
         {
-			Clients.Client client = new Clients.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], System.Configuration.ConfigurationManager.AppSettings["Username"], System.Configuration.ConfigurationManager.AppSettings["Password"]);
-            var response = await client.GetInfo(id);
-
-            ViewModels.ChainViewModel model = new ViewModels.ChainViewModel()
+            using (Clients.Client client = new Clients.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], System.Configuration.ConfigurationManager.AppSettings["Username"], System.Configuration.ConfigurationManager.AppSettings["Password"]))
             {
-                Name = id,
-                Version = response.Result.Version,
-                Balance = response.Result.Balance
-            };
+                var response = await client.GetInfo(id);
 
-            return View(model);
+                ViewModels.ChainViewModel model = new ViewModels.ChainViewModel()
+                {
+                    Name = id,
+                    Version = response.Result.Version,
+                    Balance = response.Result.Balance
+                };
+
+                return View(model);
+            }
         }
     }
 }

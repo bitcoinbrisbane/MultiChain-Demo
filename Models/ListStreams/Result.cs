@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 
 namespace Models.ListStreams
 {
@@ -14,5 +13,8 @@ namespace Models.ListStreams
 
 		[JsonProperty("subscribed")]
 		public Boolean Subscribed { get; set; }
+
+        [JsonProperty("synchronized")]
+        public Boolean Synhcronized { get; set; }
     }
 }

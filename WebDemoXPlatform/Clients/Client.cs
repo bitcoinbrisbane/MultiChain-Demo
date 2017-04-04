@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WebDemoXPlatform.Clients
 {
-    public class Client
+    public class Client : IDisposable
     {
         private readonly String _host;
         private readonly String _username;
@@ -33,20 +33,76 @@ namespace WebDemoXPlatform.Clients
 
         public async Task<Models.GetInfo.Response> GetInfo(String chain)
         {
-            //TODO:  String isnull or empty
-            using (HttpClient client = new HttpClient())
+            if (!String.IsNullOrEmpty(chain))
             {
-                Models.Request request = new Models.GetInfo.Request()
+                using (HttpClient client = new HttpClient())
                 {
-                    ChainName = chain
-                };
+                    Models.Request request = new Models.GetInfo.Request()
+                    {
+                        ChainName = chain
+                    };
 
-                String json = JsonConvert.SerializeObject(request);
-                StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
-                String url = String.Format("{0}", _host);
+                    String json = JsonConvert.SerializeObject(request);
+                    StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
+                    String url = String.Format("{0}", _host);
 
-                String content = await Post(requestContent, url);
-                return JsonConvert.DeserializeObject<Models.GetInfo.Response>(content);
+                    String content = await Post(requestContent, url);
+                    return JsonConvert.DeserializeObject<Models.GetInfo.Response>(content);
+                }
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+        }
+
+        public async Task<Models.ListStreams.Response> GetStreams(String chain)
+        {
+            if (!String.IsNullOrEmpty(chain))
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    Models.ListStreams.Request request = new Models.ListStreams.Request()
+                    {
+                        ChainName = chain
+                    };
+
+                    String json = JsonConvert.SerializeObject(request);
+                    StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
+                    String url = String.Format("{0}", _host);
+
+                    String content = await Post(requestContent, url);
+                    return JsonConvert.DeserializeObject<Models.ListStreams.Response>(content);
+                }
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+        }
+
+        public async Task<Models.ListStreamsItems.Response> GetStreamItems(String chain, String stream)
+        {
+            if (!String.IsNullOrEmpty(chain) && !String.IsNullOrEmpty(stream))
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    Models.ListStreams.Request request = new Models.ListStreams.Request()
+                    {
+                        ChainName = chain
+                    };
+
+                    String json = JsonConvert.SerializeObject(request);
+                    StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
+                    String url = String.Format("{0}", _host);
+
+                    String content = await Post(requestContent, url);
+                    return JsonConvert.DeserializeObject<Models.ListStreamsItems.Response>(content);
+                }
+            }
+            else
+            {
+                throw new ArgumentNullException();
             }
         }
 
@@ -73,6 +129,10 @@ namespace WebDemoXPlatform.Clients
                     }
                 }
             }
+        }
+
+        public void Dispose()
+        {
         }
 
         //private static void SetBasicAuthHeader(WebRequest webRequest, string username, string password)
