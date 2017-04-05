@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace WebDemoXPlatform.Controllers
 {
-    public class ChainController : Controller
+    public class ChainsController : Controller
     {
         public ActionResult Index()
         {

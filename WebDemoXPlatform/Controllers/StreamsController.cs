@@ -18,16 +18,8 @@ namespace WebDemoXPlatform.Controllers
         {
             using (Clients.Client client = new Clients.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], System.Configuration.ConfigurationManager.AppSettings["Username"], System.Configuration.ConfigurationManager.AppSettings["Password"]))
             {
-                var response = await client.GetStreams(id);
-
-                //ViewModels.ChainViewModel model = new ViewModels.ChainViewModel()
-                //{
-                //    Name = id,
-                //    Version = response.Result.Version,
-                //    Balance = response.Result.Balance
-                //};
-
-                return View(response);
+                Models.ListStreams.Response response = await client.GetStreams(id);
+                return View(response.Result);
             }
         }
 

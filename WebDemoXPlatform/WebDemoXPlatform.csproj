@@ -99,8 +99,10 @@
     </Compile>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ChainController.cs" />
+    <Compile Include="Controllers\ChainsController.cs" />
     <Compile Include="Clients\Client.cs" />
+    <Compile Include="Helpers\SerialisationHelper.cs" />
+    <Compile Include="ViewModels\AddStreamKeyValueViewModel.cs" />
     <Compile Include="ViewModels\AddStreamKeyViewModel.cs" />
     <Compile Include="ViewModels\AddStreamViewModel.cs" />
     <Compile Include="ViewModels\ChainViewModel.cs" />
@@ -123,7 +125,8 @@
     <Content Include="Web.config" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
-    <Content Include="Views\Chain\Index.cshtml" />
+    <Content Include="Views\Chains\Index.cshtml" />
+    <Content Include="Views\Chains\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">

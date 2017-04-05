@@ -9,9 +9,16 @@ namespace WebDemoXPlatform.Controllers
 {
     public class StreamItemsController : Controller
     {
-        // GET: StreamItems
+        // GET: All stream items
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">Chain</param>
+        /// <param name="stream">Stream</param>
+        /// <returns></returns>
         public ActionResult Index(String id, String stream)
         {
+
             return View();
         }
 
@@ -25,11 +32,11 @@ namespace WebDemoXPlatform.Controllers
         /// </summary>
         /// <param name="id">Chain name</param>
         /// <returns></returns>
-        public async Task<ActionResult> Post(Models.ListStreams.id)
+        public async Task<ActionResult> Post(Models.DTOs.Instrument instrument)
         {
             using (Clients.Client client = new Clients.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], System.Configuration.ConfigurationManager.AppSettings["Username"], System.Configuration.ConfigurationManager.AppSettings["Password"]))
             {
-                var response = await client.GetStreams(id);
+                //var response = await client.GetStreams(id);
 
                 //ViewModels.ChainViewModel model = new ViewModels.ChainViewModel()
                 //{
@@ -38,7 +45,7 @@ namespace WebDemoXPlatform.Controllers
                 //    Balance = response.Result.Balance
                 //};
 
-                return View(response);
+                return View();
             }
         }
     }

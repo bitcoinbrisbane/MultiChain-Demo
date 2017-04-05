@@ -7,6 +7,6 @@ namespace WebDemoXPlatform.ViewModels
     public class AddStreamKeyViewModel : AddStreamViewModel
     {
         [Required]
-        String Key { get; set; }
+        public String Key { get; set; }
     }
 }

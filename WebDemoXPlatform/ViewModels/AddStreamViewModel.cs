@@ -8,6 +8,9 @@ namespace WebDemoXPlatform.ViewModels
         [Required]
         public String Chain { get; set; }
 
+        /// <summary>
+        /// Stream Name
+        /// </summary>
         [Required]
         public String Name { get; set; }
     }
