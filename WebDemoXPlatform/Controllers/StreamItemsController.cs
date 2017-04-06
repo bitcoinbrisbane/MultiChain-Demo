@@ -18,11 +18,11 @@ namespace WebDemoXPlatform.Controllers
         /// <returns></returns>
         public ActionResult Index(String id, String stream)
         {
-
+            //each key
             return View();
         }
 
-        public async Task<ActionResult> Details()
+        public async Task<ActionResult> Details(String id, String stream, String key)
         {
             throw new NotImplementedException();
         }
@@ -32,9 +32,10 @@ namespace WebDemoXPlatform.Controllers
         /// </summary>
         /// <param name="id">Chain name</param>
         /// <returns></returns>
-        public async Task<ActionResult> Post(Models.DTOs.Instrument instrument)
+        public async Task<ActionResult> Post(ViewModels.AddStreamKeyValueViewModel viewModel)
         {
-            using (Clients.Client client = new Clients.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], System.Configuration.ConfigurationManager.AppSettings["Username"], System.Configuration.ConfigurationManager.AppSettings["Password"]))
+            Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == viewModel.Name);
+            using (Clients.Client client = new Clients.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], setting.RPCUser, setting.RPCPassword))
             {
                 //var response = await client.GetStreams(id);
 

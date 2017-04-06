@@ -106,9 +106,12 @@
     <Compile Include="ViewModels\AddStreamKeyViewModel.cs" />
     <Compile Include="ViewModels\AddStreamViewModel.cs" />
     <Compile Include="ViewModels\ChainViewModel.cs" />
+    <Compile Include="ViewModels\StreamKeyItemsViewModel.cs" />
     <Compile Include="ViewModels\StreamsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="multichaindemo - FTP.pubxml" />
+    <None Include="multichaindemo - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -127,15 +130,13 @@
     <Content Include="packages.config" />
     <Content Include="Views\Chains\Index.cshtml" />
     <Content Include="Views\Chains\Details.cshtml" />
+    <Content Include="Views\Streams\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{FA64C516-AA67-4E36-8CBC-FCD56636AF6E}</Project>
       <Name>Models</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Streams\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />

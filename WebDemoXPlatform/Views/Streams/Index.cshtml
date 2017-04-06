@@ -1,26 +1,45 @@
-﻿@model IEnumerable<Models.ListStreams.Response>
+﻿@model IEnumerable<Models.ListStreams.Result>
 
 @{
-    ViewBag.Title = "Streams";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<h2>Streams</h2>
 
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Open)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subscribed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Synchronised)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) 
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Open)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subscribed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Synchronised)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.Name })
         </td>
     </tr>
 }

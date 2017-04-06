@@ -12,14 +12,18 @@ namespace WebDemoXPlatform.Controllers
         public ActionResult Index()
         {
             List<ViewModels.ChainViewModel> models = new List<ViewModels.ChainViewModel>();
-            models.Add(new ViewModels.ChainViewModel() { Name = "gbst1" });
-            models.Add(new ViewModels.ChainViewModel() { Name = "chain1" });
+            foreach(Models.ChainSettings settings in Global.Chains)
+            {
+                models.Add(new ViewModels.ChainViewModel() { Name = settings.Name });
+            }
+            
             return View(models);
         }
 
         public async Task<ActionResult> Details(String id)
         {
-            using (Clients.Client client = new Clients.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], System.Configuration.ConfigurationManager.AppSettings["Username"], System.Configuration.ConfigurationManager.AppSettings["Password"]))
+            Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == id);
+            using (Clients.Client client = new Clients.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], setting.RPCUser, setting.RPCPassword))
             {
                 var response = await client.GetInfo(id);
 

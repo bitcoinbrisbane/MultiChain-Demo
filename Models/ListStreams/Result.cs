@@ -15,6 +15,6 @@ namespace Models.ListStreams
 		public Boolean Subscribed { get; set; }
 
         [JsonProperty("synchronized")]
-        public Boolean Synhcronized { get; set; }
+        public Boolean Synchronised { get; set; }
     }
 }

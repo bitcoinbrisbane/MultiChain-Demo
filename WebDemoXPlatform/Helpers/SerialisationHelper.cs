@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace WebDemoXPlatform.Helpers
 {
-    public class SerialisationHelper
+    public static class SerialisationHelper
     {
         public static String ToHex(Models.DTOs.Instrument instrument)
         {

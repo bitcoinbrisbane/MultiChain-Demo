@@ -33,6 +33,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChainSettings.cs" />
     <Compile Include="DTOs\Instrument.cs" />
     <Compile Include="ListStreamItems\Request.cs" />
     <Compile Include="ListStreamItems\Response.cs" />
