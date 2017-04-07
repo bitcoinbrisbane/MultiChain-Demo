@@ -88,7 +88,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
-    <Folder Include="Views\StreamItems\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
@@ -131,6 +130,9 @@
     <Content Include="Views\Chains\Index.cshtml" />
     <Content Include="Views\Chains\Details.cshtml" />
     <Content Include="Views\Streams\Index.cshtml" />
+    <Content Include="Views\StreamItems\Index.cshtml" />
+    <Content Include="Views\Chains\Stream.cshtml" />
+    <Content Include="Views\Chains\StreamItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">

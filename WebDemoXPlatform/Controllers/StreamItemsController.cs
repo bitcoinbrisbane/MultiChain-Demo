@@ -16,10 +16,14 @@ namespace WebDemoXPlatform.Controllers
         /// <param name="id">Chain</param>
         /// <param name="stream">Stream</param>
         /// <returns></returns>
-        public ActionResult Index(String id, String stream)
+        public async Task<ActionResult> Index(String id, String stream)
         {
-            //each key
-            return View();
+            Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == id);
+            using (Clients.Client client = new Clients.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], setting.RPCUser, setting.RPCPassword))
+            {
+                var response = await client.GetStreamItems(id, stream);
+                return View(response.Result);
+            }
         }
 
         public async Task<ActionResult> Details(String id, String stream, String key)

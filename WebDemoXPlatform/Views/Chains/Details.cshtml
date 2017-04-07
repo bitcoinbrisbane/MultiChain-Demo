@@ -5,36 +5,40 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details of @Model.Name</h2>
+<div class="container">
+    <h2>Details of @Model.Name</h2>
+    <div class="panel panel-default">
 
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Version)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Version)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Balance)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Balance)
+            </dd>
+
+        </dl>
+    </div>
+</div>
 <div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Version)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Version)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Balance)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Balance)
-        </dd>
-
-    </dl>
 </div>
 <p>
     @Html.ActionLink("Back to List", "Index")

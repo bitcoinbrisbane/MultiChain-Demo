@@ -39,7 +39,7 @@
             @Html.DisplayFor(modelItem => item.Synchronised)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id=item.Name })
+            @Html.ActionLink("Details", "Index", "StreamItems", new { id=item.Name }) 
         </td>
     </tr>
 }

@@ -27,7 +27,8 @@
             @Html.DisplayFor(modelItem => item.Version)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id=item.Name })
+            @Html.ActionLink("Details", "Details", new { id=item.Name }) | 
+            @Html.ActionLink("Streams", "Stream", new { id = item.Name })
         </td>
     </tr>
 }

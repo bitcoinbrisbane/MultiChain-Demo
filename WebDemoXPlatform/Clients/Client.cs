@@ -87,10 +87,13 @@ namespace WebDemoXPlatform.Clients
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    Models.ListStreams.Request request = new Models.ListStreams.Request()
+                    Models.ListStreamsItems.Request request = new Models.ListStreamsItems.Request()
                     {
                         ChainName = chain
                     };
+
+                    request.Params = new Object[1];
+                    request.Params[0] = stream;
 
                     String json = JsonConvert.SerializeObject(request);
                     StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);

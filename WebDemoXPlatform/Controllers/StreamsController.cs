@@ -16,10 +16,17 @@ namespace WebDemoXPlatform.Controllers
         /// <returns></returns>
         public async Task<ActionResult> Index(String id)
         {
-            using (Clients.Client client = new Clients.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], System.Configuration.ConfigurationManager.AppSettings["Username"], System.Configuration.ConfigurationManager.AppSettings["Password"]))
+            if (!String.IsNullOrEmpty(id))
             {
-                Models.ListStreams.Response response = await client.GetStreams(id);
-                return View(response.Result);
+                using (Clients.Client client = new Clients.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], System.Configuration.ConfigurationManager.AppSettings["Username"], System.Configuration.ConfigurationManager.AppSettings["Password"]))
+                {
+                    Models.ListStreams.Response response = await client.GetStreams(id);
+                    return View(response.Result);
+                }
+            }
+            else
+            {
+                throw new ArgumentNullException();
             }
         }
     }
