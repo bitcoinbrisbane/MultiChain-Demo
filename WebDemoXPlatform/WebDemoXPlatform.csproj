@@ -92,7 +92,6 @@
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StreamItemsController.cs" />
-    <Compile Include="Controllers\StreamsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -129,7 +128,6 @@
     <Content Include="packages.config" />
     <Content Include="Views\Chains\Index.cshtml" />
     <Content Include="Views\Chains\Details.cshtml" />
-    <Content Include="Views\Streams\Index.cshtml" />
     <Content Include="Views\StreamItems\Index.cshtml" />
     <Content Include="Views\Chains\Stream.cshtml" />
     <Content Include="Views\Chains\StreamItems.cshtml" />
