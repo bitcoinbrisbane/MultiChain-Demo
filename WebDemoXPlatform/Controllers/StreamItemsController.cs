@@ -26,9 +26,10 @@ namespace WebDemoXPlatform.Controllers
             }
         }
 
-        public async Task<ActionResult> Details(String id, String stream, String key)
+        public ActionResult Deserialize(String id, String data)
         {
-            throw new NotImplementedException();
+            Models.DTOs.Instrument model = Helpers.SerialisationHelper.ToObject<Models.DTOs.Instrument>(data);
+            return View(model);
         }
 
         /// <summary>

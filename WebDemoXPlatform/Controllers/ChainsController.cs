@@ -58,7 +58,6 @@ namespace WebDemoXPlatform.Controllers
             }
         }
 
-
         public async Task<ActionResult> Details(String id)
         {
             Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == id);
@@ -75,6 +74,12 @@ namespace WebDemoXPlatform.Controllers
 
                 return View(model);
             }
+        }
+
+        public ActionResult Deserialize(String id, String data)
+        {
+            Models.DTOs.Instrument model = Helpers.SerialisationHelper.ToObject<Models.DTOs.Instrument>(data);
+            return View(model);
         }
     }
 }

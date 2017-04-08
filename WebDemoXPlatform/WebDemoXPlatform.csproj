@@ -86,9 +86,7 @@
     </Reference>
     <Reference Include="System.Configuration" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StreamItemsController.cs" />
@@ -131,6 +129,7 @@
     <Content Include="Views\StreamItems\Index.cshtml" />
     <Content Include="Views\Chains\Stream.cshtml" />
     <Content Include="Views\Chains\StreamItems.cshtml" />
+    <Content Include="Views\Chains\Deserialize.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">

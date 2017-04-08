@@ -127,7 +127,6 @@ namespace WebDemoXPlatform.Clients
                     }
                     else
                     {
-                        //maybe here?
                         throw new InvalidOperationException();
                     }
                 }

@@ -50,7 +50,7 @@
                 @Html.DisplayFor(modelItem => item.BlockTime)
             </td>
             <td>
-                @Html.ActionLink("Desearlise", "Details", new { id = item.Key })
+                @Html.ActionLink("Desearlise", "Deserialize", new { id = item.Key, data = item.Data })
             </td>
         </tr>
     }
