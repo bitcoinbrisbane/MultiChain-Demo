@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace WebDemoXPlatform.ViewModels
 {
-    public class StreamsViewModel
+    public class StreamsViewModel : Models.ListStreams.Result
     {
+        public String Chain { get; set; }
     }
 }

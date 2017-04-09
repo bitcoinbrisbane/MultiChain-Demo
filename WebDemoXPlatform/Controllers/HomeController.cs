@@ -7,6 +7,7 @@ using System.Web.Mvc.Ajax;
 
 namespace WebDemoXPlatform.Controllers
 {
+    [Obsolete]
 	public class HomeController : Controller
 	{
 		public ActionResult Index()
