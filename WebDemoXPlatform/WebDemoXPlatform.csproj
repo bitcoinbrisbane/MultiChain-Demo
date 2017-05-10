@@ -136,6 +136,10 @@
       <Project>{FA64C516-AA67-4E36-8CBC-FCD56636AF6E}</Project>
       <Name>Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MultiChainLib\MultiChainLib.csproj">
+      <Project>{f7c35562-fdd5-4124-86df-b8be94cf816d}</Project>
+      <Name>MultiChainLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />

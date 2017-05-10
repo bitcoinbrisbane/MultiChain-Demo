@@ -6,7 +6,7 @@ namespace WebDemoXPlatform.Helpers
 {
     public static class SerialisationHelper
     {
-        public static String ToHex(Models.DTOs.Instrument instrument)
+        public static String ToHex(Models.DTOs.Entity instrument)
         {
             String json = Newtonsoft.Json.JsonConvert.SerializeObject(instrument);
             Byte[] bytes = System.Text.Encoding.ASCII.GetBytes(json);

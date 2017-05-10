@@ -28,7 +28,7 @@ namespace WebDemoXPlatform.Controllers
 
         public ActionResult Deserialize(String id, String data)
         {
-            Models.DTOs.Instrument model = Helpers.SerialisationHelper.ToObject<Models.DTOs.Instrument>(data);
+            Models.DTOs.Entity model = Helpers.SerialisationHelper.ToObject<Models.DTOs.Entity>(data);
             return View(model);
         }
 

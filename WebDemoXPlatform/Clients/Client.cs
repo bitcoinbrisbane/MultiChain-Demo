@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace WebDemoXPlatform.Clients
 {
+    [Obsolete]
     public class Client : IDisposable
     {
         private readonly String _host;
@@ -136,12 +137,5 @@ namespace WebDemoXPlatform.Clients
         public void Dispose()
         {
         }
-
-        //private static void SetBasicAuthHeader(WebRequest webRequest, string username, string password)
-        //{
-        //    var authInfo = username + ":" + password;
-        //    authInfo = Convert.ToBase64String(Encoding.Default.GetBytes(authInfo));
-        //    webRequest.Headers["Authorization"] = "Basic " + authInfo;
-        //}
     }
 }
