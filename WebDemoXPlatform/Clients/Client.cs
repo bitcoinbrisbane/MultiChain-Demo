@@ -45,7 +45,7 @@ namespace WebDemoXPlatform.Clients
 
                     String json = JsonConvert.SerializeObject(request);
                     StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
-                    String url = String.Format("{0}", _host);
+                    String url = String.Format("{0}:8364", _host);
 
                     String content = await Post(requestContent, url);
                     return JsonConvert.DeserializeObject<Models.GetInfo.Response>(content);
@@ -70,7 +70,7 @@ namespace WebDemoXPlatform.Clients
 
                     String json = JsonConvert.SerializeObject(request);
                     StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
-                    String url = String.Format("{0}", _host);
+                    String url = String.Format("{0}:8364", _host);
 
                     String content = await Post(requestContent, url);
                     return JsonConvert.DeserializeObject<Models.ListStreams.Response>(content);
@@ -98,7 +98,7 @@ namespace WebDemoXPlatform.Clients
 
                     String json = JsonConvert.SerializeObject(request);
                     StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
-                    String url = String.Format("{0}", _host);
+                    String url = String.Format("{0}:8364", _host);
 
                     String content = await Post(requestContent, url);
                     return JsonConvert.DeserializeObject<Models.ListStreamsItems.Response>(content);

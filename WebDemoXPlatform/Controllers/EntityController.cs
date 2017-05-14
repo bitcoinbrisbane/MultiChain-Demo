@@ -13,5 +13,22 @@ namespace WebDemoXPlatform.Controllers
         {
             return View();
         }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        public ActionResult Create(Models.DTOs.Entity model)
+        {
+            String node = System.Configuration.ConfigurationManager.AppSettings["Node1"];
+            String username = System.Configuration.ConfigurationManager.AppSettings["Username"];
+            String password = System.Configuration.ConfigurationManager.AppSettings["Password"];
+
+            using (MultiChainLib.MultiChainClient client = new MultiChainLib.MultiChainClient(node,  , false, username, password))
+            {
+                
+            }
+        }
     }
 }

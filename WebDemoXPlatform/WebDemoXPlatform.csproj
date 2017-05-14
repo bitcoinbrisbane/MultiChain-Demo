@@ -86,9 +86,7 @@
     </Reference>
     <Reference Include="System.Configuration" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Entity\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="Controllers\EntityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -133,6 +131,8 @@
     <Content Include="Views\Chains\Stream.cshtml" />
     <Content Include="Views\Chains\StreamItems.cshtml" />
     <Content Include="Views\Chains\Deserialize.cshtml" />
+    <Content Include="Views\Entity\Create.cshtml" />
+    <Content Include="Views\Entity\Authorise.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">

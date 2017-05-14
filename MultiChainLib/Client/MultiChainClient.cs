@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MultiChainLib
 {
-    public class MultiChainClient
+    public class MultiChainClient : IDisposable
     {
         private string Hostname { get; set; }
         private int Port { get; set; }
@@ -733,6 +733,12 @@ namespace MultiChainLib
                 return new NetworkCredential(this.Username, this.Password);
             else
                 return null;
+        }
+
+        public void Dispose()
+        {
+            this.Username = string.Empty;
+            this.Password = string.Empty;
         }
 
         public bool HasCredentials
