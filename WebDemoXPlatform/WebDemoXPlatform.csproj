@@ -86,8 +86,11 @@
     </Reference>
     <Reference Include="System.Configuration" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Folder Include="Views\Entity\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\EntityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StreamItemsController.cs" />
     <Compile Include="Global.asax.cs">
