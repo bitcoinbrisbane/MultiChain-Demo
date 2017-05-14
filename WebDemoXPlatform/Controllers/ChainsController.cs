@@ -31,7 +31,8 @@ namespace WebDemoXPlatform.Controllers
         {
             if (!String.IsNullOrEmpty(id))
             {
-                using (Clients.Client client = new Clients.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], System.Configuration.ConfigurationManager.AppSettings["Username"], System.Configuration.ConfigurationManager.AppSettings["Password"]))
+                Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == id);
+                using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
                 {
                     Models.ListStreams.Response response = await client.GetStreams(id);
                     List<ViewModels.StreamsViewModel> streams = new List<ViewModels.StreamsViewModel>();
@@ -59,7 +60,7 @@ namespace WebDemoXPlatform.Controllers
         public async Task<ActionResult> StreamItems(String id, String stream)
         {
             Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == id);
-            using (Clients.Client client = new Clients.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], setting.RPCUser, setting.RPCPassword))
+            using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
             {
                 var response = await client.GetStreamItems(id, stream);
 
@@ -77,7 +78,7 @@ namespace WebDemoXPlatform.Controllers
         public async Task<ActionResult> Details(String id)
         {
             Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == id);
-            using (Clients.Client client = new Clients.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], setting.RPCUser, setting.RPCPassword))
+            using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
             {
                 var response = await client.GetInfo(id);
 

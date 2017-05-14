@@ -14,13 +14,15 @@ namespace WebDemoXPlatform.Clients
         private readonly String _host;
         private readonly String _username;
         private readonly String _password;
+        private readonly Int16 _port;
 
         private const String MEDIA_TYPE = "application/json";
 
-        public Client(String node, String username, String password)
+        public Client(String node, String username, String password, Int16 port = 8364)
         {
             _username = username;
             _password = password;
+            _port = port;
 
             if (!String.IsNullOrEmpty(node))
             {
@@ -45,7 +47,7 @@ namespace WebDemoXPlatform.Clients
 
                     String json = JsonConvert.SerializeObject(request);
                     StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
-                    String url = String.Format("{0}:8364", _host);
+                    String url = String.Format("{0}:{1}", _host, _port);
 
                     String content = await Post(requestContent, url);
                     return JsonConvert.DeserializeObject<Models.GetInfo.Response>(content);
@@ -70,7 +72,7 @@ namespace WebDemoXPlatform.Clients
 
                     String json = JsonConvert.SerializeObject(request);
                     StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
-                    String url = String.Format("{0}:8364", _host);
+                    String url = String.Format("{0}:{1}", _host, _port);
 
                     String content = await Post(requestContent, url);
                     return JsonConvert.DeserializeObject<Models.ListStreams.Response>(content);
@@ -98,7 +100,7 @@ namespace WebDemoXPlatform.Clients
 
                     String json = JsonConvert.SerializeObject(request);
                     StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
-                    String url = String.Format("{0}:8364", _host);
+                    String url = String.Format("{0}:{1}", _host, _port);
 
                     String content = await Post(requestContent, url);
                     return JsonConvert.DeserializeObject<Models.ListStreamsItems.Response>(content);

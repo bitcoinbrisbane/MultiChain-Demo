@@ -53,7 +53,6 @@
     <Compile Include="GetInfo\Result.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AddStream\" />
     <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>

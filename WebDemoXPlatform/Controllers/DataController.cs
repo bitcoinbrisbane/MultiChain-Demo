@@ -36,50 +36,68 @@ namespace WebDemoXPlatform.Controllers
 
         public ActionResult Create()
         {
-            Byte[] key = new Byte[128];
+            //TODO: KEY SIZE, fixed at 256 bit
+            Byte[] key = new Byte[16];
+            Random rnd = new Random();
+            rnd.NextBytes(key);
 
-            ViewModels.DataEntityViewModel viewModel = new ViewModels.DataEntityViewModel();
-            return View();
+            ViewModels.DataEntityViewModel viewModel = new ViewModels.DataEntityViewModel(key);
+            return View(viewModel);
         }
 
+        [HttpPost]
         public ActionResult Create(ViewModels.DataEntityViewModel viewModel)
         {
+            Byte[] data = Encoding.ASCII.GetBytes(viewModel.Data);
+            Byte[] key = Convert.FromBase64String(viewModel.PrivateKey);
+
+            Byte[] encryptedData = EncryptByteArray(key, data);
+
+            Models.DTOs.DataEntity dto = new Models.DTOs.DataEntity() { Id = viewModel.Id };
+            dto.Data = Convert.ToBase64String(encryptedData);
+
+            //push to chain
+
+            //redirect
+
+            //return RedirectToAction();
+
             return View();
         }
 
-        private static void TestBC()
-        {
-            //Demo params
-            string keyString = "jDxESdRrcYKmSZi7IOW4lw==";
+        //private static void TestBC()
+        //{
+        //    //Demo params
+        //    string keyString = "jDxESdRrcYKmSZi7IOW4lw==";
 
-            string input = "abc";
-            byte[] inputBytes = Encoding.UTF8.GetBytes(input);
-            byte[] iv = new byte[16]; //for the sake of demo
+        //    string input = "abc";
+        //    byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+        //    byte[] iv = new byte[16]; //for the sake of demo
 
-            //Set up
-            AesEngine engine = new AesEngine();
-            CbcBlockCipher blockCipher = new CbcBlockCipher(engine); //CBC
-            PaddedBufferedBlockCipher cipher = new PaddedBufferedBlockCipher(blockCipher); //Default scheme is PKCS5/PKCS7
-            KeyParameter keyParam = new KeyParameter(Convert.FromBase64String(keyString));
-            ParametersWithIV keyParamWithIV = new ParametersWithIV(keyParam, iv, 0, 16);
+        //    //Set up
+        //    AesEngine engine = new AesEngine();
+        //    CbcBlockCipher blockCipher = new CbcBlockCipher(engine); //CBC
+        //    PaddedBufferedBlockCipher cipher = new PaddedBufferedBlockCipher(blockCipher); //Default scheme is PKCS5/PKCS7
+        //    KeyParameter keyParam = new KeyParameter(Convert.FromBase64String(keyString));
+        //    ParametersWithIV keyParamWithIV = new ParametersWithIV(keyParam, iv, 0, 16);
 
-            // Encrypt
-            cipher.Init(true, keyParamWithIV);
-            byte[] outputBytes = new byte[cipher.GetOutputSize(inputBytes.Length)];
-            int length = cipher.ProcessBytes(inputBytes, outputBytes, 0);
-            cipher.DoFinal(outputBytes, length); //Do the final block
-            string encryptedInput = Convert.ToBase64String(outputBytes);
+        //    // Encrypt
+        //    cipher.Init(true, keyParamWithIV);
+        //    byte[] outputBytes = new byte[cipher.GetOutputSize(inputBytes.Length)];
+        //    int length = cipher.ProcessBytes(inputBytes, outputBytes, 0);
+        //    cipher.DoFinal(outputBytes, length); //Do the final block
+        //    string encryptedInput = Convert.ToBase64String(outputBytes);
 
-            Console.WriteLine("Encrypted string: {0}", encryptedInput);
+        //    Console.WriteLine("Encrypted string: {0}", encryptedInput);
 
-            //Decrypt            
-            cipher.Init(false, keyParamWithIV);
-            byte[] comparisonBytes = new byte[cipher.GetOutputSize(outputBytes.Length)];
-            length = cipher.ProcessBytes(outputBytes, comparisonBytes, 0);
-            cipher.DoFinal(comparisonBytes, length); //Do the final block
+        //    //Decrypt            
+        //    cipher.Init(false, keyParamWithIV);
+        //    byte[] comparisonBytes = new byte[cipher.GetOutputSize(outputBytes.Length)];
+        //    length = cipher.ProcessBytes(outputBytes, comparisonBytes, 0);
+        //    cipher.DoFinal(comparisonBytes, length); //Do the final block
 
-            Console.WriteLine("Decrypted string: {0}", Encoding.UTF8.GetString(comparisonBytes)); //Should be abc
-        }
+        //    Console.WriteLine("Decrypted string: {0}", Encoding.UTF8.GetString(comparisonBytes)); //Should be abc
+        //}
 
         /// <summary>
         /// Encrypt a byte array using AES 128
@@ -95,11 +113,13 @@ namespace WebDemoXPlatform.Controllers
                 {
                     cryptor.Mode = CipherMode.CBC;
                     cryptor.Padding = PaddingMode.PKCS7;
-                    cryptor.KeySize = 128;
+                    cryptor.KeySize = 256;
                     cryptor.BlockSize = 128;
 
                     //We use the random generated iv created by AesManaged
-                    byte[] iv = cryptor.IV;
+                    //byte[] iv = cryptor.IV;
+                    //TODO, GET FROM CONFIG
+                    byte[] iv = new Byte[16] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
                     using (CryptoStream cs = new CryptoStream(ms, cryptor.CreateEncryptor(key, iv), CryptoStreamMode.Write))
                     {
@@ -111,8 +131,8 @@ namespace WebDemoXPlatform.Controllers
                     byte[] result = new byte[iv.Length + encryptedContent.Length];
 
                     //copy our 2 array into one
-                    System.Buffer.BlockCopy(iv, 0, result, 0, iv.Length);
-                    System.Buffer.BlockCopy(encryptedContent, 0, result, iv.Length, encryptedContent.Length);
+                    Buffer.BlockCopy(iv, 0, result, 0, iv.Length);
+                    Buffer.BlockCopy(encryptedContent, 0, result, iv.Length, encryptedContent.Length);
 
                     return result;
                 }
@@ -131,8 +151,8 @@ namespace WebDemoXPlatform.Controllers
             byte[] encryptedContent = new byte[secret.Length - 16]; //the rest should be encryptedcontent
 
             //Copy data to byte array
-            System.Buffer.BlockCopy(secret, 0, iv, 0, iv.Length);
-            System.Buffer.BlockCopy(secret, iv.Length, encryptedContent, 0, encryptedContent.Length);
+            Buffer.BlockCopy(secret, 0, iv, 0, iv.Length);
+            Buffer.BlockCopy(secret, iv.Length, encryptedContent, 0, encryptedContent.Length);
 
             using (MemoryStream ms = new MemoryStream())
             {
@@ -140,7 +160,7 @@ namespace WebDemoXPlatform.Controllers
                 {
                     cryptor.Mode = CipherMode.CBC;
                     cryptor.Padding = PaddingMode.PKCS7;
-                    cryptor.KeySize = 128;
+                    cryptor.KeySize = 256;
                     cryptor.BlockSize = 128;
 
                     using (CryptoStream cs = new CryptoStream(ms, cryptor.CreateDecryptor(key, iv), CryptoStreamMode.Write))
@@ -152,26 +172,5 @@ namespace WebDemoXPlatform.Controllers
                 }
             }
         }
-
-        //public string Encrypt(string plain, string key)
-        //{
-        //    byte[] result = BouncyCastleCrypto(true, _encoding.GetBytes(plain), key);
-        //    return Convert.ToBase64String(result);
-        //}
-
-        //private byte[] BouncyCastleCrypto(bool forEncrypt, byte[] input, string key)
-        //{
-        //    try
-        //    {
-        //        _cipher = _padding == null ? new PaddedBufferedBlockCipher(_blockCipher) : new PaddedBufferedBlockCipher(_blockCipher, _padding);
-        //        byte[] keyByte = _encoding.GetBytes(key);
-        //        _cipher.Init(forEncrypt, new KeyParameter(keyByte));
-        //        return _cipher.DoFinal(input);
-        //    }
-        //    catch (Org.BouncyCastle.Crypto.CryptoException ex)
-        //    {
-        //        throw new CryptoException(ex.Message);
-        //    }
-        //}
     }
 }

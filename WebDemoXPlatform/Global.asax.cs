@@ -20,8 +20,9 @@ namespace WebDemoXPlatform
             get
             {
                 List<Models.ChainSettings> chains = new List<Models.ChainSettings>(2);
-                chains.Add(new Models.ChainSettings() { Name = "gbst1", Host = "http://139.59.100.99:9742", RPCUser = "multichainrpc", RPCPassword = "F6iFWNPinwoeHA7Ai8g3xG36jNxVUgErx2w3Y1isgmfG" });
-                chains.Add(new Models.ChainSettings() { Name = "chain1", Host = "http://139.59.100.99:8364", RPCUser = "multichainrpc", RPCPassword = "4HuYGDSP2mw53rzRHyZ7SAuob1oSmsJjFoQWyPvpMLts" });
+                //chains.Add(new Models.ChainSettings() { Name = "gbst1", Host = "http://139.59.100.99:9742", RPCUser = "multichainrpc", RPCPassword = "F6iFWNPinwoeHA7Ai8g3xG36jNxVUgErx2w3Y1isgmfG" });
+                //chains.Add(new Models.ChainSettings() { Name = "chain1", Host = "http://139.59.100.99:8364", RPCUser = "multichainrpc", RPCPassword = "4HuYGDSP2mw53rzRHyZ7SAuob1oSmsJjFoQWyPvpMLts" });
+                chains.Add(new Models.ChainSettings() { Name = "gbst", Host = "http://139.59.100.99", Port = 2667, RPCUser = "multichainrpc", RPCPassword = "AnmRTrf9C2hWm7RZCBAwSvwrXeuqSkS61FroAAcgSk4v" });
 
                 return chains;
             }
