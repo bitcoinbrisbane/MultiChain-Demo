@@ -8,6 +8,8 @@ namespace WebDemoXPlatform.Controllers
 {
     public class EntityController : Controller
     {
+        private readonly Int32 _port = 8364;
+
         // GET: Entity
         public ActionResult Index()
         {
@@ -25,9 +27,9 @@ namespace WebDemoXPlatform.Controllers
             String username = System.Configuration.ConfigurationManager.AppSettings["Username"];
             String password = System.Configuration.ConfigurationManager.AppSettings["Password"];
 
-            using (MultiChainLib.MultiChainClient client = new MultiChainLib.MultiChainClient(node,  , false, username, password))
+            using (MultiChainLib.MultiChainClient client = new MultiChainLib.MultiChainClient(node, _port, false, username, password, "gbst"))
             {
-                
+                return View();
             }
         }
     }

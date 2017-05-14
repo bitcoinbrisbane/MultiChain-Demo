@@ -62,6 +62,7 @@ namespace WebDemoXPlatform.Controllers
             using (Clients.Client client = new Clients.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], setting.RPCUser, setting.RPCPassword))
             {
                 var response = await client.GetStreamItems(id, stream);
+
                 //List<ViewModels.StreamsViewModel> streams = new List<ViewModels.StreamsViewModel>();
 
                 //foreach(Models.ListStreams.Result result in response.Result)
