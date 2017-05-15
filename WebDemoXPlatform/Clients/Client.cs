@@ -40,17 +40,25 @@ namespace WebDemoXPlatform.Clients
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    Models.Request request = new Models.GetInfo.Request()
+                    try
                     {
-                        ChainName = chain
-                    };
+                        Models.Request request = new Models.GetInfo.Request()
+                        {
+                            ChainName = chain
+                        };
 
-                    String json = JsonConvert.SerializeObject(request);
-                    StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
-                    String url = String.Format("{0}:{1}", _host, _port);
+                        String json = JsonConvert.SerializeObject(request);
+                        StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
+                        String url = String.Format("{0}:{1}", _host, _port);
 
-                    String content = await Post(requestContent, url);
-                    return JsonConvert.DeserializeObject<Models.GetInfo.Response>(content);
+                        String content = await Post(requestContent, url);
+                        return JsonConvert.DeserializeObject<Models.GetInfo.Response>(content);
+                    }
+                    catch (Exception ex)
+                    {
+                        //
+                        throw ex;
+                    }
                 }
             }
             else
@@ -97,6 +105,32 @@ namespace WebDemoXPlatform.Clients
 
                     request.Params = new Object[1];
                     request.Params[0] = stream;
+
+                    String json = JsonConvert.SerializeObject(request);
+                    StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
+                    String url = String.Format("{0}:{1}", _host, _port);
+
+                    String content = await Post(requestContent, url);
+                    return JsonConvert.DeserializeObject<Models.ListStreamsItems.Response>(content);
+                }
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+        }
+
+        public async Task<Models.ListStreamsItems.Response> PublishStreamItem(String chain, String stream, String id, String data)
+        {
+            if (!String.IsNullOrEmpty(chain) && !String.IsNullOrEmpty(stream))
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    Models.PublishStreamItem.Request request = new Models.PublishStreamItem.Request(chain, stream);
+                    request.Params = new Object[2];
+                    request.Params[0] = stream;
+                    request.Params[1] = id;
+                    request.Params[2] = data;
 
                     String json = JsonConvert.SerializeObject(request);
                     StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);

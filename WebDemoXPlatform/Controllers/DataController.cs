@@ -9,12 +9,13 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
 namespace WebDemoXPlatform.Controllers
 {
-    public class DataController : Controller
+    public class DataController : BaseController
     {
         //private readonly Encoding _encoding;
         //private readonly IBlockCipher _blockCipher;
@@ -46,7 +47,7 @@ namespace WebDemoXPlatform.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(ViewModels.DataEntityViewModel viewModel)
+        public async Task<ActionResult> Create(ViewModels.DataEntityViewModel viewModel)
         {
             Byte[] data = Encoding.ASCII.GetBytes(viewModel.Data);
             Byte[] key = Convert.FromBase64String(viewModel.PrivateKey);
@@ -57,12 +58,14 @@ namespace WebDemoXPlatform.Controllers
             dto.Data = Convert.ToBase64String(encryptedData);
 
             //push to chain
+            Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == "gbst");
+            using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
+            {
+                String hex = Helpers.SerialisationHelper.ToHex(dto);
+                var response = await client.PublishStreamItem("gbst", "data", viewModel.Id.ToString(), hex);
 
-            //redirect
-
-            //return RedirectToAction();
-
-            return View();
+                return View(response);
+            }
         }
 
         //private static void TestBC()

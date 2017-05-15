@@ -15,6 +15,15 @@ namespace WebDemoXPlatform.Helpers
             return hex.Replace("-", "");
         }
 
+        public static String ToHex<T>(T dto)
+        {
+            String json = Newtonsoft.Json.JsonConvert.SerializeObject(dto);
+            Byte[] bytes = System.Text.Encoding.ASCII.GetBytes(json);
+
+            String hex = BitConverter.ToString(bytes);
+            return hex.Replace("-", "");
+        }
+
         public static T ToObject<T>(String value)
         {
             Byte[] bytes = Enumerable.Range(0, value.Length)
