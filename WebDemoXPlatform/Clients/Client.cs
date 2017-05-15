@@ -126,18 +126,25 @@ namespace WebDemoXPlatform.Clients
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    Models.PublishStreamItem.Request request = new Models.PublishStreamItem.Request(chain, stream);
-                    request.Params = new Object[2];
-                    request.Params[0] = stream;
-                    request.Params[1] = id;
-                    request.Params[2] = data;
+                    try
+                    {
+                        Models.PublishStreamItem.Request request = new Models.PublishStreamItem.Request(chain, stream);
+                        request.Params = new Object[3];
+                        request.Params[0] = stream;
+                        request.Params[1] = id;
+                        request.Params[2] = data;
 
-                    String json = JsonConvert.SerializeObject(request);
-                    StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
-                    String url = String.Format("{0}:{1}", _host, _port);
+                        String json = JsonConvert.SerializeObject(request);
+                        StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
+                        String url = String.Format("{0}:{1}", _host, _port);
 
-                    String content = await Post(requestContent, url);
-                    return JsonConvert.DeserializeObject<Models.ListStreamsItems.Response>(content);
+                        String content = await Post(requestContent, url);
+                        return JsonConvert.DeserializeObject<Models.ListStreamsItems.Response>(content);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
                 }
             }
             else

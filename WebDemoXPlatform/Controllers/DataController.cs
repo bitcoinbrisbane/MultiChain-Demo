@@ -62,7 +62,7 @@ namespace WebDemoXPlatform.Controllers
             using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
             {
                 String hex = Helpers.SerialisationHelper.ToHex(dto);
-                var response = await client.PublishStreamItem("gbst", "data", viewModel.Id.ToString(), hex);
+                var response = await client.PublishStreamItem("gbst", "Data", viewModel.Id.ToString(), hex);
 
                 return View(response);
             }

@@ -11,7 +11,7 @@ namespace Models.PublishStreamItem
         public Request(String chain, String stream)
         {
             //publish chain name
-            Method = String.Format("publish {0}", chain);
+            Method = String.Format("{0} publish", chain);
         }
     }
 }
