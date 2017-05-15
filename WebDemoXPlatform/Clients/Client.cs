@@ -120,31 +120,25 @@ namespace WebDemoXPlatform.Clients
             }
         }
 
-        public async Task<Models.ListStreamsItems.Response> PublishStreamItem(String chain, String stream, String id, String data)
+        public async Task<Models.PublishStreamItem.Response> PublishStreamItem(String chain, String stream, String id, String data)
         {
             if (!String.IsNullOrEmpty(chain) && !String.IsNullOrEmpty(stream))
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    try
-                    {
-                        Models.PublishStreamItem.Request request = new Models.PublishStreamItem.Request(chain, stream);
-                        request.Params = new Object[3];
-                        request.Params[0] = stream;
-                        request.Params[1] = id;
-                        request.Params[2] = data;
 
-                        String json = JsonConvert.SerializeObject(request);
-                        StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
-                        String url = String.Format("{0}:{1}", _host, _port);
+                    Models.PublishStreamItem.Request request = new Models.PublishStreamItem.Request(chain, stream);
+                    request.Params = new Object[3];
+                    request.Params[0] = stream;
+                    request.Params[1] = id;
+                    request.Params[2] = data;
 
-                        String content = await Post(requestContent, url);
-                        return JsonConvert.DeserializeObject<Models.ListStreamsItems.Response>(content);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
+                    String json = JsonConvert.SerializeObject(request);
+                    StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
+                    String url = String.Format("{0}:{1}", _host, _port);
+
+                    String content = await Post(requestContent, url);
+                    return JsonConvert.DeserializeObject<Models.PublishStreamItem.Response>(content);
                 }
             }
             else
