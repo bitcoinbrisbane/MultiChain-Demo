@@ -126,8 +126,7 @@ namespace WebDemoXPlatform.Clients
             {
                 using (HttpClient client = new HttpClient())
                 {
-
-                    Models.PublishStreamItem.Request request = new Models.PublishStreamItem.Request(chain, stream);
+                    Models.PublishStreamItem.Request request = new Models.PublishStreamItem.Request() { ChainName = chain };
                     request.Params = new Object[3];
                     request.Params[0] = stream;
                     request.Params[1] = id;

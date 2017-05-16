@@ -11,7 +11,7 @@ namespace Models.PublishStreamItem
         [JsonProperty("params")]
         public object[] Params { get; set; }
 
-        public Request(String chain, String stream)
+        public Request()
         {
             //publish chain name
             Method = String.Format("publish");

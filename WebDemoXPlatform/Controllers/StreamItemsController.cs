@@ -19,7 +19,7 @@ namespace WebDemoXPlatform.Controllers
         public async Task<ActionResult> Index(String id, String stream)
         {
             Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == id);
-            using (Clients.Client client = new Clients.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], setting.RPCUser, setting.RPCPassword))
+            using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
             {
                 var response = await client.GetStreamItems(id, stream);
                 return View(response.Result);
@@ -40,7 +40,7 @@ namespace WebDemoXPlatform.Controllers
         public async Task<ActionResult> Post(ViewModels.AddStreamKeyValueViewModel viewModel)
         {
             Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == viewModel.Name);
-            using (Clients.Client client = new Clients.Client(System.Configuration.ConfigurationManager.AppSettings["Node1"], setting.RPCUser, setting.RPCPassword))
+            using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
             {
                 //var response = await client.GetStreams(id);
 
