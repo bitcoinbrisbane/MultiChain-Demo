@@ -67,7 +67,7 @@ namespace WebDemoXPlatform.Clients
             }
         }
 
-        public async Task<Models.ListStreams.Response> GetStreams(String chain)
+        public async Task<Models.ListStreams.Response> ListStreams(String chain)
         {
             if (!String.IsNullOrEmpty(chain))
             {
@@ -92,13 +92,13 @@ namespace WebDemoXPlatform.Clients
             }
         }
 
-        public async Task<Models.ListStreamsItems.Response> GetStreamItems(String chain, String stream)
+        public async Task<Models.ListStreams.Response> ListStreams(String chain, String stream)
         {
-            if (!String.IsNullOrEmpty(chain) && !String.IsNullOrEmpty(stream))
+            if (!String.IsNullOrEmpty(chain))
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    Models.ListStreamsItems.Request request = new Models.ListStreamsItems.Request()
+                    Models.ListStreams.Request request = new Models.ListStreams.Request()
                     {
                         ChainName = chain
                     };
@@ -111,7 +111,42 @@ namespace WebDemoXPlatform.Clients
                     String url = String.Format("{0}:{1}", _host, _port);
 
                     String content = await Post(requestContent, url);
-                    return JsonConvert.DeserializeObject<Models.ListStreamsItems.Response>(content);
+                    return JsonConvert.DeserializeObject<Models.ListStreams.Response>(content);
+                }
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+        }
+
+        public async Task<Models.ListStreamsItems.Response> ListStreamItems(String chain, String stream)
+        {
+            if (!String.IsNullOrEmpty(chain) && !String.IsNullOrEmpty(stream))
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    try
+                    {
+                        Models.ListStreamsItems.Request request = new Models.ListStreamsItems.Request()
+                        {
+                            ChainName = chain
+                        };
+
+                        request.Params = new Object[1];
+                        request.Params[0] = stream;
+
+                        String json = JsonConvert.SerializeObject(request);
+                        StringContent requestContent = new StringContent(json, Encoding.UTF8, MEDIA_TYPE);
+                        String url = String.Format("{0}:{1}", _host, _port);
+
+                        String content = await Post(requestContent, url);
+                        return JsonConvert.DeserializeObject<Models.ListStreamsItems.Response>(content);
+                    }
+                    catch(Exception ex)
+                    {
+                        throw ex;
+                    }
                 }
             }
             else

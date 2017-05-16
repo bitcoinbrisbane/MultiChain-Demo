@@ -34,7 +34,7 @@ namespace WebDemoXPlatform.Controllers
                 Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == id);
                 using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
                 {
-                    Models.ListStreams.Response response = await client.GetStreams(id);
+                    Models.ListStreams.Response response = await client.ListStreams(id);
                     List<ViewModels.StreamsViewModel> streams = new List<ViewModels.StreamsViewModel>();
 
                     foreach (Models.ListStreams.Result result in response.Result)
@@ -62,7 +62,7 @@ namespace WebDemoXPlatform.Controllers
             Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == id);
             using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
             {
-                var response = await client.GetStreamItems(id, stream);
+                var response = await client.ListStreamItems(id, stream);
 
                 //List<ViewModels.StreamsViewModel> streams = new List<ViewModels.StreamsViewModel>();
 

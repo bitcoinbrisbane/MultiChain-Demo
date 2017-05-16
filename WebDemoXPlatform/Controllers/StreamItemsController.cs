@@ -21,7 +21,7 @@ namespace WebDemoXPlatform.Controllers
             Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == id);
             using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
             {
-                var response = await client.GetStreamItems(id, stream);
+                var response = await client.ListStreamItems(id, stream);
                 return View(response.Result);
             }
         }
