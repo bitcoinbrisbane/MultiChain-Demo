@@ -98,7 +98,6 @@
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\EntityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\StreamItemsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -112,6 +111,7 @@
     <Compile Include="ViewModels\AddStreamViewModel.cs" />
     <Compile Include="ViewModels\ChainViewModel.cs" />
     <Compile Include="ViewModels\DataEntityViewModel.cs" />
+    <Compile Include="ViewModels\StreamItemsViewModel.cs" />
     <Compile Include="ViewModels\StreamKeyItemsViewModel.cs" />
     <Compile Include="ViewModels\StreamsViewModel.cs" />
   </ItemGroup>
@@ -141,7 +141,6 @@
     <Content Include="packages.config" />
     <Content Include="Views\Chains\Index.cshtml" />
     <Content Include="Views\Chains\Details.cshtml" />
-    <Content Include="Views\StreamItems\Index.cshtml" />
     <Content Include="Views\Chains\Stream.cshtml" />
     <Content Include="Views\Chains\StreamItems.cshtml" />
     <Content Include="Views\Chains\Deserialize.cshtml" />
