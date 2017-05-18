@@ -29,10 +29,28 @@ namespace WebDemoXPlatform.Controllers
             //_cipher = new PaddedBufferedBlockCipher(_blockCipher);
         }
             
-        // GET: Data
-        public ActionResult Index()
+        /// <summary>
+        /// Get data
+        /// </summary>
+        /// <param name="id">Chain</param>
+        /// <returns></returns>
+        public ActionResult Index(String id)
         {
-            return View();
+            Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == id);
+            using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
+            {
+                var response = await client.ListStreamItems(id, "Data");
+
+
+                //List<ViewModels.StreamsViewModel> streams = new List<ViewModels.StreamsViewModel>();
+
+                //foreach(Models.ListStreams.Result result in response.Result)
+                //{
+                //    streams.Add(new ViewModels.StreamsViewModel() { Chain = id, Name = result.Name, Open = result.Open, Subscribed = result.Subscribed, Synchronised = result.Synchronised });
+                //}
+
+                return View(response.Result);
+            }
         }
 
         public ActionResult Create()
@@ -54,17 +72,28 @@ namespace WebDemoXPlatform.Controllers
 
             Byte[] encryptedData = EncryptByteArray(key, data);
 
-            Models.DTOs.DataEntity dto = new Models.DTOs.DataEntity() { Id = viewModel.Id };
-            dto.Data = Convert.ToBase64String(encryptedData);
+            Models.DTOs.DataEntity dataDto = new Models.DTOs.DataEntity() { Id = viewModel.Id };
+            dataDto.Data = Convert.ToBase64String(encryptedData);
+
+            Models.DTOs.Access accessDto = new Models.DTOs.Access()
+            {
+                ConsumingEntityId = viewModel.ConsumingEntityId,
+                PublishingEntityId = viewModel.PublishingEntityId,
+                DataId = dataDto.Id,
+                PrivateKey = viewModel.PrivateKey
+            };
 
             //push to chain
             Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == "gbst");
             using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
             {
-                String hex = Helpers.SerialisationHelper.ToHex(dto);
-                var response = await client.PublishStreamItem("gbst", "Data", viewModel.Id.ToString(), hex);
+                String hex = Helpers.SerialisationHelper.ToHex(dataDto);
+                var dataTask = client.PublishStreamItem("gbst", "Data", dataDto.Id.ToString(), hex);
+                var accessTask = client.PublishStreamItem("gbst", "Access", dataDto.Id.ToString(), hex);
 
-                return View(response);
+                await Task.WhenAll(accessTask, dataTask);
+
+                return View();
             }
         }
 

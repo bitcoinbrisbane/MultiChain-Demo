@@ -94,6 +94,7 @@
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\EntityController.cs" />
@@ -148,6 +149,7 @@
     <Content Include="Views\Entity\Authorise.cshtml" />
     <Content Include="Views\Data\Create.cshtml" />
     <Content Include="Views\Data\Details.cshtml" />
+    <Content Include="Views\Data\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">

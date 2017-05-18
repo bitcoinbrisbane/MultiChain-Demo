@@ -12,6 +12,12 @@ namespace WebDemoXPlatform.ViewModels
         [DisplayName("256 bit private key as base64"), Required, RegularExpression("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$")]
         public String PrivateKey { get; set; }
 
+        [DisplayName("Publishing Entity Id")]
+        public Guid PublishingEntityId { get; set; }
+
+        [DisplayName("Consuming Entity Id")]
+        public Guid ConsumingEntityId { get; set; }
+
         public DataEntityViewModel()
         {
         }
