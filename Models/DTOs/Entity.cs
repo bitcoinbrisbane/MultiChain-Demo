@@ -17,7 +17,7 @@ namespace Models.DTOs
         [MaxLength(4)]
         public String Market { get; set; }
 
-        [MaxLength(10)]
+        [MaxLength(10), Display(Name = "Instrument Type")]
         public String InstrumentType { get; set; }
 
         public String PublicKey { get; set; }

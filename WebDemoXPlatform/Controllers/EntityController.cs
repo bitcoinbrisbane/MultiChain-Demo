@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,8 +9,6 @@ namespace WebDemoXPlatform.Controllers
 {
     public class EntityController : Controller
     {
-        private readonly Int32 _port = 8364;
-
         // GET: Entity
         public ActionResult Index()
         {
@@ -18,18 +17,22 @@ namespace WebDemoXPlatform.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            Models.DTOs.Entity dto = new Models.DTOs.Entity();
+            return View(dto);
         }
 
-        public ActionResult Create(Models.DTOs.Entity model)
+        [HttpPost]
+        public async Task<ActionResult> Create(Models.DTOs.Entity dto)
         {
-            String node = System.Configuration.ConfigurationManager.AppSettings["Node1"];
-            String username = System.Configuration.ConfigurationManager.AppSettings["Username"];
-            String password = System.Configuration.ConfigurationManager.AppSettings["Password"];
+            //push to chain
+            Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == "gbst");
 
-            using (MultiChainLib.MultiChainClient client = new MultiChainLib.MultiChainClient(node, _port, false, username, password, "gbst"))
+            using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
             {
-                return View();
+                String hex = Helpers.SerialisationHelper.ToHex(dto);
+                var response = await client.PublishStreamItem("gbst", "Entity", dto.Id.ToString(), hex);
+
+                return View(response);
             }
         }
     }

@@ -68,40 +68,6 @@ namespace WebDemoXPlatform.Controllers
             }
         }
 
-        //private static void TestBC()
-        //{
-        //    //Demo params
-        //    string keyString = "jDxESdRrcYKmSZi7IOW4lw==";
-
-        //    string input = "abc";
-        //    byte[] inputBytes = Encoding.UTF8.GetBytes(input);
-        //    byte[] iv = new byte[16]; //for the sake of demo
-
-        //    //Set up
-        //    AesEngine engine = new AesEngine();
-        //    CbcBlockCipher blockCipher = new CbcBlockCipher(engine); //CBC
-        //    PaddedBufferedBlockCipher cipher = new PaddedBufferedBlockCipher(blockCipher); //Default scheme is PKCS5/PKCS7
-        //    KeyParameter keyParam = new KeyParameter(Convert.FromBase64String(keyString));
-        //    ParametersWithIV keyParamWithIV = new ParametersWithIV(keyParam, iv, 0, 16);
-
-        //    // Encrypt
-        //    cipher.Init(true, keyParamWithIV);
-        //    byte[] outputBytes = new byte[cipher.GetOutputSize(inputBytes.Length)];
-        //    int length = cipher.ProcessBytes(inputBytes, outputBytes, 0);
-        //    cipher.DoFinal(outputBytes, length); //Do the final block
-        //    string encryptedInput = Convert.ToBase64String(outputBytes);
-
-        //    Console.WriteLine("Encrypted string: {0}", encryptedInput);
-
-        //    //Decrypt            
-        //    cipher.Init(false, keyParamWithIV);
-        //    byte[] comparisonBytes = new byte[cipher.GetOutputSize(outputBytes.Length)];
-        //    length = cipher.ProcessBytes(outputBytes, comparisonBytes, 0);
-        //    cipher.DoFinal(comparisonBytes, length); //Do the final block
-
-        //    Console.WriteLine("Decrypted string: {0}", Encoding.UTF8.GetString(comparisonBytes)); //Should be abc
-        //}
-
         /// <summary>
         /// Encrypt a byte array using AES 128
         /// </summary>
