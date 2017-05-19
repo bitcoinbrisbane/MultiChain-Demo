@@ -34,7 +34,7 @@ namespace WebDemoXPlatform.Controllers
         /// </summary>
         /// <param name="id">Chain</param>
         /// <returns></returns>
-        public ActionResult Index(String id)
+        public async Task<ActionResult> Index(String id)
         {
             Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == id);
             using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
