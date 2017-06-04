@@ -32,7 +32,8 @@ namespace WebDemoXPlatform.Controllers
                 String hex = Helpers.SerialisationHelper.ToHex(dto);
                 var response = await client.PublishStreamItem("gbst", "Entity", dto.Id.ToString(), hex);
 
-                return View(response);
+                ViewBag.Response = "";
+                return RedirectToAction("Index");
             }
         }
     }

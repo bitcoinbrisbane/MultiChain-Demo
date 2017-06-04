@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebDemoXPlatform.ViewModels.StreamsViewModel>
+﻿@model IEnumerable<WebDemoXPlatform.ViewModels.StreamViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.Synchronised)
             </td>
             <td>
-                @Html.ActionLink("Details", "StreamItems", new { id = item.Chain, stream = item.Name }) |
+                @Html.ActionLink("Stream Items", "StreamItems", new { id = item.Chain, stream = item.Name }) |
                 @Html.ActionLink("Add", "Create", item.Name)
             </td>
         </tr>

@@ -31,15 +31,17 @@ namespace WebDemoXPlatform.Controllers
         {
             if (!String.IsNullOrEmpty(id))
             {
+                ViewBag.Id = id;
+
                 Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == id);
                 using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
                 {
                     Models.ListStreams.Response response = await client.ListStreams(id);
-                    List<ViewModels.StreamsViewModel> streams = new List<ViewModels.StreamsViewModel>();
+                    List<ViewModels.StreamViewModel> streams = new List<ViewModels.StreamViewModel>();
 
                     foreach (Models.ListStreams.Result result in response.Result)
                     {
-                        streams.Add(new ViewModels.StreamsViewModel() { Chain = id, Name = result.Name, Open = result.Open, Subscribed = result.Subscribed, Synchronised = result.Synchronised });
+                        streams.Add(new ViewModels.StreamViewModel() { Chain = id, Name = result.Name, Open = result.Open, Subscribed = result.Subscribed, Synchronised = result.Synchronised });
                     }
                     return View(streams);
                 }
@@ -62,16 +64,20 @@ namespace WebDemoXPlatform.Controllers
             Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == id);
             using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
             {
+                ViewModels.StreamItemsViewModel viewModel = new ViewModels.StreamItemsViewModel();
+                viewModel.ChainName = id;
+
                 var response = await client.ListStreamItems(id, stream);
 
-                //List<ViewModels.StreamsViewModel> streams = new List<ViewModels.StreamsViewModel>();
+                if (response != null)
+                {
+                    foreach (Models.ListStreamsItems.Result result in response.Result)
+                    {
+                        viewModel.Items.Add(result);
+                    }
+                }
 
-                //foreach(Models.ListStreams.Result result in response.Result)
-                //{
-                //    streams.Add(new ViewModels.StreamsViewModel() { Chain = id, Name = result.Name, Open = result.Open, Subscribed = result.Subscribed, Synchronised = result.Synchronised });
-                //}
-
-                return View(response.Result);
+                return View(viewModel);
             }
         }
 

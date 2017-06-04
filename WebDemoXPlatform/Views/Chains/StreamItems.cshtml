@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Models.ListStreamsItems.Result>
+﻿@model WebDemoXPlatform.ViewModels.StreamItemViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -8,30 +8,20 @@
 <h2>Stream Items</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", "Data")
+    @Html.ActionLink("Create New", "Create", Model.ChainName)
 </p>
 
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Key)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Data)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TxId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Confirmations)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BlockTime)
-        </th>
+        <th>Key</th>
+        <th>Data</th>
+        <th>TxId</th>
+        <th>Confirmations</th>
+        <th>BlockTime</th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Items)
     {
         <tr>
             <td>

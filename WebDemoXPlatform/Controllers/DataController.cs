@@ -67,34 +67,37 @@ namespace WebDemoXPlatform.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(ViewModels.DataEntityViewModel viewModel)
         {
-            Byte[] data = Encoding.ASCII.GetBytes(viewModel.Data);
-            Byte[] key = Convert.FromBase64String(viewModel.PrivateKey);
-
-            Byte[] encryptedData = EncryptByteArray(key, data);
-
-            Models.DTOs.DataEntity dataDto = new Models.DTOs.DataEntity() { Id = viewModel.Id };
-            dataDto.Data = Convert.ToBase64String(encryptedData);
-
-            Models.DTOs.Access accessDto = new Models.DTOs.Access()
+            if (!String.IsNullOrEmpty(viewModel.Data))
             {
-                ConsumingEntityId = viewModel.ConsumingEntityId,
-                PublishingEntityId = viewModel.PublishingEntityId,
-                DataId = dataDto.Id,
-                PrivateKey = viewModel.PrivateKey
-            };
+                Byte[] data = Encoding.ASCII.GetBytes(viewModel.Data);
+                Byte[] key = Convert.FromBase64String(viewModel.PrivateKey);
 
-            //push to chain
-            Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == "gbst");
-            using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
-            {
-                String hex = Helpers.SerialisationHelper.ToHex(dataDto);
-                var dataTask = client.PublishStreamItem("gbst", "Data", dataDto.Id.ToString(), hex);
-                var accessTask = client.PublishStreamItem("gbst", "Access", dataDto.Id.ToString(), hex);
+                Byte[] encryptedData = EncryptByteArray(key, data);
 
-                await Task.WhenAll(accessTask, dataTask);
+                Models.DTOs.DataEntity dataDto = new Models.DTOs.DataEntity() { Id = viewModel.Id };
+                dataDto.Data = Convert.ToBase64String(encryptedData);
 
-                return View();
+                Models.DTOs.Access accessDto = new Models.DTOs.Access()
+                {
+                    ConsumingEntityId = viewModel.ConsumingEntityId,
+                    PublishingEntityId = viewModel.PublishingEntityId,
+                    DataId = dataDto.Id,
+                    PrivateKey = viewModel.PrivateKey
+                };
+
+                //push to chain
+                Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == "gbst");
+                using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
+                {
+                    String hex = Helpers.SerialisationHelper.ToHex(dataDto);
+                    var dataTask = client.PublishStreamItem("gbst", "Data", dataDto.Id.ToString(), hex);
+                    var accessTask = client.PublishStreamItem("gbst", "Access", dataDto.Id.ToString(), hex);
+
+                    await Task.WhenAll(accessTask, dataTask);
+                }
             }
+
+            return View(); 
         }
 
         /// <summary>

@@ -113,8 +113,7 @@
     <Compile Include="ViewModels\ChainViewModel.cs" />
     <Compile Include="ViewModels\DataEntityViewModel.cs" />
     <Compile Include="ViewModels\StreamItemsViewModel.cs" />
-    <Compile Include="ViewModels\StreamKeyItemsViewModel.cs" />
-    <Compile Include="ViewModels\StreamsViewModel.cs" />
+    <Compile Include="ViewModels\StreamViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="multichaindemo - FTP.pubxml" />

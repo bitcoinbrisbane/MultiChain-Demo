@@ -5,13 +5,13 @@ namespace Models.DTOs
 {
     public class Entity : BaseEntity
     {
-        [Required, RegularExpression("AZ09[4-11]")]
+        [Required, RegularExpression("^[A-Z0-9]{4-11}")]
         public String BIC { get; set; }
 
         [Required]
         public String Name { get; set; }
 
-        [Required, RegularExpression("AZ09[3]")]
+        [Required, RegularExpression("^[A-Z0-9]{3}")]
         public String Country { get; set; }
 
         [MaxLength(4)]
