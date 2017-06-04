@@ -66,6 +66,7 @@ namespace WebDemoXPlatform.Controllers
             {
                 ViewModels.StreamItemsViewModel viewModel = new ViewModels.StreamItemsViewModel();
                 viewModel.ChainName = id;
+                viewModel.Stream = stream;
 
                 var response = await client.ListStreamItems(id, stream);
 
