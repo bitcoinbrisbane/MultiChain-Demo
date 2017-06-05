@@ -1,0 +1,48 @@
+﻿@model WebDemoXPlatform.ViewModels.StreamItemsViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Stream Items</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", Model.Stream)
+</p>
+
+<table class="table">
+    <tr>
+        <th>Key</th>
+        <th>Data</th>
+        <th>TxId</th>
+        <th>Confirmations</th>
+        <th>BlockTime</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Items)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Key)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TxId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Confirmations)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BlockTime)
+            </td>
+            <td>
+                @Html.ActionLink("Desearlise", "Deserialize", new { id = item.Key, data = item.Data })
+            </td>
+        </tr>
+    }
+
+</table>

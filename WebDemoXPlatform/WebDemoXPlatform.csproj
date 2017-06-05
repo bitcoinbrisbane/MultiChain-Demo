@@ -149,6 +149,7 @@
     <Content Include="Views\Data\Create.cshtml" />
     <Content Include="Views\Data\Details.cshtml" />
     <Content Include="Views\Data\Index.cshtml" />
+    <Content Include="Views\Entity\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">

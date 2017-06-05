@@ -10,9 +10,30 @@ namespace WebDemoXPlatform.Controllers
     public class EntityController : Controller
     {
         // GET: Entity
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            const string id = "gbst";
+            const string stream = "Entity";
+
+            Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == id);
+            using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
+            {
+                ViewModels.StreamItemsViewModel viewModel = new ViewModels.StreamItemsViewModel();
+                viewModel.ChainName = id;
+                viewModel.Stream = stream;
+
+                var response = await client.ListStreamItems(id, stream);
+
+                if (response != null)
+                {
+                    foreach (Models.ListStreamsItems.Result result in response.Result)
+                    {
+                        viewModel.Items.Add(result);
+                    }
+                }
+
+                return View(viewModel);
+            }
         }
 
         public ActionResult Create()
