@@ -9,11 +9,11 @@ namespace WebDemoXPlatform.Controllers
 {
     public class AccessController : Controller
     {
+        private const string id = "gbst";
+        private const string stream = "Access";
+
         public async Task<ActionResult> Index()
         {
-            const string id = "gbst";
-            const string stream = "Access";
-
             Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == id);
             using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
             {
