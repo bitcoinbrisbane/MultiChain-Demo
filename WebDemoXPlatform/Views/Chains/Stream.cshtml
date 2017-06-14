@@ -41,6 +41,7 @@
             </td>
             <td>
                 @Html.ActionLink("Stream Items", "StreamItems", new { id = item.Chain, stream = item.Name }) |
+                @Html.ActionLink("Deserialized Items", "Index", item.Name) |
                 @Html.ActionLink("Add", "Create", item.Name)
             </td>
         </tr>

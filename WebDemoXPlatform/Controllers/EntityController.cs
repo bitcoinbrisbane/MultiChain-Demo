@@ -9,12 +9,12 @@ namespace WebDemoXPlatform.Controllers
 {
     public class EntityController : Controller
     {
+        private const string id = "gbst";
+        private const string stream = "Entity";
+
         // GET: Entity
         public async Task<ActionResult> Index()
         {
-            const string id = "gbst";
-            const string stream = "Entity";
-
             Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == id);
             using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
             {
@@ -22,17 +22,21 @@ namespace WebDemoXPlatform.Controllers
                 viewModel.ChainName = id;
                 viewModel.Stream = stream;
 
+                List<Models.DTOs.Entity> entities = new List<Models.DTOs.Entity>();
+
                 var response = await client.ListStreamItems(id, stream);
 
                 if (response != null)
                 {
                     foreach (Models.ListStreamsItems.Result result in response.Result)
                     {
-                        viewModel.Items.Add(result);
+                        Models.DTOs.Entity entity = Helpers.SerialisationHelper.ToObject<Models.DTOs.Entity>(result.Data);
+                        entities.Add(entity);
+                        //viewModel.Items.Add(result);
                     }
                 }
 
-                return View(viewModel);
+                return View(entities);
             }
         }
 
@@ -46,12 +50,12 @@ namespace WebDemoXPlatform.Controllers
         public async Task<ActionResult> Create(Models.DTOs.Entity dto)
         {
             //push to chain
-            Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == "gbst");
+            Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == id);
 
             using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
             {
                 String hex = Helpers.SerialisationHelper.ToHex(dto);
-                var response = await client.PublishStreamItem("gbst", "Entity", dto.Id.ToString(), hex);
+                var response = await client.PublishStreamItem(id, "Entity", dto.Id.ToString(), hex);
 
                 ViewBag.Response = "";
                 return RedirectToAction("Index");

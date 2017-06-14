@@ -1,48 +1,62 @@
-﻿@model WebDemoXPlatform.ViewModels.StreamItemsViewModel
+﻿@model IEnumerable<Models.DTOs.Entity>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Stream Items</h2>
+<h2>Entity Items (Deseralized)</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", Model.Stream)
+    @Html.ActionLink("Create New", "Create")
 </p>
-
 <table class="table">
     <tr>
-        <th>Key</th>
-        <th>Data</th>
-        <th>TxId</th>
-        <th>Confirmations</th>
-        <th>BlockTime</th>
+        <th>
+            @Html.DisplayNameFor(model => model.BIC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Market)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InstrumentType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PublicKey)
+        </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model.Items)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Key)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Data)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TxId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Confirmations)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BlockTime)
-            </td>
-            <td>
-                @Html.ActionLink("Desearlise", "Deserialize", new { id = item.Key, data = item.Data })
-            </td>
-        </tr>
-    }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BIC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Country)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Market)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InstrumentType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PublicKey)
+        </td>
+        <td>
+
+        </td>
+    </tr>
+}
 
 </table>

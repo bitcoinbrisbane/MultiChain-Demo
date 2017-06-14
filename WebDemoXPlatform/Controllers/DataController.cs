@@ -22,6 +22,9 @@ namespace WebDemoXPlatform.Controllers
         //private PaddedBufferedBlockCipher _cipher;
         //private IBlockCipherPadding _padding;
 
+        private const string id = "gbst";
+        private const string stream = "Data";
+
         public DataController()
         {
             //_encoding = new UTF8Encoding(); //ASCIIEncoding();
@@ -34,22 +37,22 @@ namespace WebDemoXPlatform.Controllers
         /// </summary>
         /// <param name="id">Chain</param>
         /// <returns></returns>
-        public async Task<ActionResult> Index(String id)
+        public async Task<ActionResult> Index()
         {
             Models.ChainSettings setting = Global.Chains.SingleOrDefault(s => s.Name == id);
             using (Clients.Client client = new Clients.Client(setting.Host, setting.RPCUser, setting.RPCPassword, setting.Port))
             {
-                var response = await client.ListStreamItems(id, "Data");
+                var response = await client.ListStreamItems(id, stream);
 
+                List<Models.DTOs.DataEntity> entities = new List<Models.DTOs.DataEntity>();
 
-                //List<ViewModels.StreamsViewModel> streams = new List<ViewModels.StreamsViewModel>();
+                foreach (Models.ListStreamsItems.Result result in response.Result)
+                {
+                    Models.DTOs.DataEntity entity = Helpers.SerialisationHelper.ToObject<Models.DTOs.DataEntity>(result.Data);
+                    entities.Add(entity);
+                }
 
-                //foreach(Models.ListStreams.Result result in response.Result)
-                //{
-                //    streams.Add(new ViewModels.StreamsViewModel() { Chain = id, Name = result.Name, Open = result.Open, Subscribed = result.Subscribed, Synchronised = result.Synchronised });
-                //}
-
-                return View(response.Result);
+                return View(entities);
             }
         }
 
